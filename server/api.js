@@ -41,7 +41,7 @@ api.post('/campuses/create', (req, res, next) => {
   .catch(next)
 })
 
-api.put('/students/:studentid', (req, res, next) => {
+api.put('/students/:studentid/edit', (req, res, next) => {
   Student.findById(req.params.studentid)
   .then((student) => {
     return student.update(req.body)
@@ -50,7 +50,7 @@ api.put('/students/:studentid', (req, res, next) => {
   .catch(next)
 })
 
-api.put('/campuses/:campusid', (req, res, next) => {
+api.put('/campuses/:campusid/edit', (req, res, next) => {
   Campus.findById(req.params.campusid)
   .then((campus) => {
     return campus.update(req.body)

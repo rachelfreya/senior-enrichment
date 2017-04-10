@@ -6,12 +6,6 @@ import { hashHistory } from 'react-router';
 export default class AppContainer extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      students: [],
-      campuses: [],
-      currentStudent: {},
-      currentCampus: {}
-    }
 
     this.deleteStudent = this.deleteStudent.bind(this);
     this.deleteCampus = this.deleteCampus.bind(this);
@@ -20,11 +14,11 @@ export default class AppContainer extends Component {
   }
 
   deleteStudent(studentId){
-    axios.delete(`api/students/${studentId}/delete`)
+    axios.delete(`api/students/${studentId}`)
   }
 
   deleteCampus(campusId){
-    axios.delete(`api/campuses/${campusId}/delete`)
+    axios.delete(`api/campuses/${campusId}`)
   }
 
   addStudent(name, email){
@@ -49,6 +43,14 @@ export default class AppContainer extends Component {
         hashHistory.push(`campuses/${campus.id}`)
       })
     })
+  }
+
+  editStudent(studentId, name, email){
+    axios.put(`/api/students/${studentId}`)
+  }
+
+   editCampus(campusId, name, url){
+    axios.put(`/api/campuses/${campusId}`)
   }
 
   render(){
