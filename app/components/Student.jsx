@@ -1,6 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { removeStudent } from '../action-creators/actions'
 
-export default function Student (props) {
+function Student (props) {
+
+  const handleSubmit = e => {
+    props.removeStudent(props.student.id)
+  }
+
   return (
       <div>
         <div>
@@ -17,8 +25,14 @@ export default function Student (props) {
           </Link>
         </div>
         <div>
-          <button onSubmit={props.deleteStudent}>Delete Student</button>
+          <button onSubmit={handleSubmit}>Delete Student</button>
         </div>
       </div>
       )
 }
+
+const mapState = ({ student }) => ({ student })
+
+const mapDispatch = { removeStudent }
+
+export default connect(mapState, mapDispatch)(Student)

@@ -1,7 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { removeCampus } from '../action-creators/actions'
 
-export default function Campus (props) {
+
+function Campus (props) {
+
+  const handleSubmit = e => {
+    props.removeCampus(props.campus.id)
+  }
 
   return (
     <div>
@@ -19,11 +26,12 @@ export default function Campus (props) {
         </Link>
       </div>
       <div>
-        <button onSubmit={props.deleteCampus}>Delete Campus</button>
+        <button onSubmit={handleSubmit}>Delete Campus</button>
       </div>
       <div>
         {
-        props.students.map((student) => (
+        props.students.filter((student) => (student.campusId = props.campus.id))
+          .map((student) => (
               <div key={student.id}>
                 <Link to={`/students/${student.id}`}>
                   <div className='caption'>
@@ -35,7 +43,14 @@ export default function Campus (props) {
               </div>
               ))
             }
+        }
       </div>
     </div>
     )
 }
+
+const mapState = ({ students, campus }) => ({ students, campus })
+
+const mapDispatch = { removeCampus }
+
+export default connect(mapState, mapDispatch)(Campus)

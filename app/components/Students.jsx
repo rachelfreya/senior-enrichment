@@ -1,17 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router';
+import { connect } from 'react-redux';
 
-
-export default function Students (props) {
-  const handleAdd = e => {
-    props.addStudent(e.target.value)
-  }
+function Students (props) {
 
   return (
     <div>
       <h3>Students</h3>
       <div>
-        <button onSubmit={handleAdd}>Add Student</button>
+        <Link to={`/students/create`}>
+          <div className='caption'>
+            <h5>
+              <span>Add Student</span>
+                </h5>
+          </div>
+        </Link>
       </div>
       <div>
       {
@@ -31,3 +34,7 @@ export default function Students (props) {
           </div>
           )
 }
+
+const mapState = ({ students }) => ({ students })
+
+export default connect(mapState, null)(Students)

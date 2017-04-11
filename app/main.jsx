@@ -29,6 +29,7 @@ render (
     <Route path='/students/:studentid/edit' component={EditStudent} />
     <Route path='/campuses/create' component={AddCampus} />
     <Route path='/students/create' component={AddStudent} />
+    <IndexRedirect to='/' />
   </Provider>,
   document.getElementById('main')
 )
