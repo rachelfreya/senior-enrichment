@@ -1,6 +1,8 @@
 'use strict'
 const api = require('express').Router()
-const db = require('../db')
+const Student = require('../db/models/index').Student
+const Campus = require('../db/models/index').Campus
+
 
 // If you aren't getting to this object, but rather the index.html (something with a joke) your path is wrong.
 	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
@@ -41,7 +43,7 @@ api.post('/campuses/create', (req, res, next) => {
   .catch(next)
 })
 
-api.put('/students/:studentid/edit', (req, res, next) => {
+api.put('/students/:studentid', (req, res, next) => {
   Student.findById(req.params.studentid)
   .then((student) => {
     return student.update(req.body)
@@ -50,7 +52,7 @@ api.put('/students/:studentid/edit', (req, res, next) => {
   .catch(next)
 })
 
-api.put('/campuses/:campusid/edit', (req, res, next) => {
+api.put('/campuses/:campusid', (req, res, next) => {
   Campus.findById(req.params.campusid)
   .then((campus) => {
     return campus.update(req.body)
@@ -60,20 +62,20 @@ api.put('/campuses/:campusid/edit', (req, res, next) => {
 })
 
 api.delete('/students/:studentid', (req, res, next) => {
-  Student.findById(req.params.id)
+  Student.findById(req.params.studentid)
   .then((student) => {
     return student.destroy()
   })
-  .then(res.redirect('/'))
+  .then(() => res.redirect('/'))
   .catch(next)
 })
 
 api.delete('/campuses/:campusid', (req, res, next) => {
-  Campus.findById(req.params.id)
+  Campus.findById(req.params.campusid)
   .then((campus) => {
     return campus.destroy()
   })
-  .then(res.redirect('/'))
+  .then(() => res.redirect('/'))
   .catch(next)
 })
 

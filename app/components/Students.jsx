@@ -1,7 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+//Component
 function Students (props) {
 
   return (
@@ -35,6 +36,7 @@ function Students (props) {
           )
 }
 
+//Container
 const mapState = ({ students }) => ({ students })
 
 export default connect(mapState, null)(Students)

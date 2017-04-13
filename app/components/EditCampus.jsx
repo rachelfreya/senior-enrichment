@@ -1,12 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateCampus } from '../action-creators/actions';
+import { connect } from 'react-redux'
+import axios from 'axios';
 
+import { editCampus } from '../action-creators/actions'
 
+//Component
 function EditCampus (props) {
 
+  //update the selected campus with the new values from the form
   const handleSubmit = e => {
-    props.updateCampus({name: e.target.value.name, imageUrl: e.target.value.url})
+    props.updateCampus(props.selectedCampus.id, {name: e.target.name.value, imageUrl: e.target.url.value})
   }
 
   return (
@@ -20,6 +23,16 @@ function EditCampus (props) {
       </form>
     </div>
       )
+}
+
+//Container
+const updateCampus = (campusId, updatedCampus) => {
+  return dispatch => {
+    axios.put(`/api/campuses/${campusId}`, {updatedCampus})
+    .then(res => {
+      dispatch(editCampus(res.data))
+    })
+  }
 }
 
 const mapState = ({ selectedCampus }) => ({ selectedCampus })

@@ -1,5 +1,24 @@
-import axios from 'axios';
-import { hashHistory } from 'react-router'
+import axios from 'axios'
+
+export const loadStudents = students => ({
+  type: 'LOAD_STUDENTS',
+  students
+})
+
+export const loadCampuses = campuses => ({
+  type: 'LOAD_CAMPUSES',
+  campuses
+})
+
+export const loadStudent = student => ({
+  type: 'LOAD_STUDENT',
+  student
+})
+
+export const loadCampus = campus => ({
+  type: 'LOAD_CAMPUS',
+  campus
+})
 
 export const addStudent = student => ({
   type: 'ADD_STUDENT',
@@ -23,68 +42,55 @@ export const editCampus = campus => ({
 
 export const deleteStudent = student => ({
   type: 'DELETE_STUDENT',
-  students
+  student
 })
 
 export const deleteCampus = campus => ({
   type: 'DELETE_CAMPUS',
-  campuses
+  campus
 })
 
-export const newStudent = student => {
+export const loadAllStudents = () => {
   return dispatch => {
-    axios.post('/api/students/create', {student})
-    .then(res => {
-      dispatch(addStudent(res.data))
-      }, () => {
-        hashHistory.push(`students/${student.id}`)
-      })
-  }
-}
+    axios.get('/api/students')
+      .then(res => {
+        dispatch(loadStudents(res.data));
+      });
+  };
+};
 
-export const newCampus = campus => {
+export const loadAllCampuses = () => {
   return dispatch => {
-    axios.post('/api/campuses/create', {campus})
-    .then(res => {
-      dispatch(addCampus(res.data))
-      }, () => {
-        hashHistory.push(`campuses/${campus.id}`)
-      })
-  }
-}
+    axios.get('/api/campuses')
+      .then(res => {
+        dispatch(loadCampuses(res.data));
+      });
+  };
+};
 
-export const updateStudent = (studentId, updatedStudent) => {
+export const getStudentById = studentId => {
   return dispatch => {
-    axios.put(`/api/students/${studentId}`, {updatedStudent})
-    .then(res => {
-      dispatch(editStudent(res.data))
-    })
-  }
-}
+    axios.get(`/api/students/${studentId}`)
+      .then(res => {
+        dispatch(loadStudent(res.data));
+      });
+  };
+};
 
-export const updateCampus = (campusId, updatedCampus) => {
+export const getCampusById = campusId => {
   return dispatch => {
-    axios.put(`/api/campuses/${campusId}`, {updatedCampus})
-    .then(res => {
-      dispatch(editCampus(res.data))
-    })
-  }
-}
+    axios.get(`/api/campuses/${campusId}`)
+      .then(res => {
+        dispatch(loadCampus(res.data));
+      });
+  };
+};
 
 export const removeStudent = studentId => {
   return dispatch => {
     axios.delete(`/api/students/${studentId}`)
       .then(res => {
         dispatch(deleteStudent(res.data));
-      });
-  };
-};
-
-export const removeCampus = campusId => {
-  return dispatch => {
-    axios.delete(`/api/campuses/${campusId}`)
-      .then(res => {
-        dispatch(deleteCampus(res.data));
       });
   };
 };

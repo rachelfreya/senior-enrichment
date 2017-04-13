@@ -7,14 +7,14 @@ export default function Home () {
         <h2>Welcome to the Margaret Hamilton Interplanetary Academy of JavaScript</h2>
         </div>
         <div>
-          <Link to={`/students/`}>
+          <Link to={`/students`}>
             <div className='caption'>
               <h5>
                 <span>Students</span>
               </h5>
             </div>
           </Link>
-          <Link to={`/campuses/`}>
+          <Link to={`/campuses`}>
             <div className='caption'>
               <h5>
                 <span>Campuses</span>
